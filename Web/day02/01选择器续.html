@@ -5,8 +5,56 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
+    <style>
+        /*子孙后代选择器*/
+        body div div div p {
+            color: red;
+        }
+
+        /*子元素选择器*/
+        body > div > p {
+            color: blue;
+        }
+
+        /*body > div  p {*/
+        /*    color: blue;*/
+        /*}*/
+
+        /*伪类选择器*/
+        a：link {
+            color: red
+        }
+
+        a:visited {
+            color: green
+        }
+
+        a:hover{
+            color: yellow;
+        }
+        a:active{
+            color: pink;
+        }
+    </style>
 </head>
 <body>
+<a href="https://www.baidu.com" target="_blank">链接1</a>
+<a href="https://www.baidu.com">链接2</a>
+<a href="https://www.baidu.com">链接3</a>
 
+<p>p1</p>
+<div>
+
+    <p>p2</p>
+
+    <div><p>p3</p></div>
+
+    <div>
+        <p>p4</p>
+
+        <div><p>p5</p></div>
+
+    </div>
+</div>
 </body>
 </html>
