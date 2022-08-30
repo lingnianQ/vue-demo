@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <style>
+        ul li {
+            list-style: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <td>img</td>
+        <td id="t_1"></td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td id="t_2"></td>
+    </tr>
+    <tr>
+        <td>age</td>
+        <td id="t_3"></td>
+    </tr>
+    <tr>
+        <td>friend</td>
+        <td id="t_4"></td>
+    </tr>
+</table>
+<input type="button" value="请求数据" id="btn">
+<script>
+    let person = {
+        url: "../day01/a/a.gif",
+        name: "张三",
+        age: 18,
+        friend: ["李四", "lll", "王五"]
+    }
+    let btn = document.getElementById("btn")
+
+    btn.onclick = function () {
+        var td_1 = document.getElementById("t_1");
+        var img = document.createElement("img");
+        img.src = person.url;
+        img.width = 50;
+        img.height = 50;
+        td_1.append(img);
+
+        var td_2 = document.getElementById("t_2");
+        td_2.append(person.name);
+
+        var td_3 = document.getElementById("t_3");
+        td_3.append(person.age);
+
+        var ul = document.createElement("ul");
+        var td_4 = document.getElementById("t_4");
+
+        for (let name of person.friend) {
+            var li = document.createElement("li");
+            li.append(name);
+            ul.append(li);
+        }
+        td_4.append(ul);
+
+    }
+
+
+    // btn.onclick = function(){
+    //     let tr = document.querySelectorAll("tr");
+    //     let td = tr[1].children;
+    //     let td1 = document.createElement("td");
+    //     var img = document.createElement("img");
+    //     let tr1 = document.createElement("tr");
+    //     let tbody = document.getElementById("t_1");
+    //     img.src = "../day01/a/a.gif";
+    //     td1.append(img);
+    //     tr1.append(td1);
+    //     tbody.append(tr1);
+    //     console.log(td[1].nodeName)
+    // }
+
+</script>
+</body>
+</html>

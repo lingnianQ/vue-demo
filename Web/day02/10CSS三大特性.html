@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <style>
+        /*继承*/
+        body {
+            font-family: cursive;
+        }
+
+        #d1 {
+            color: red;
+        }
+
+        div {
+            color: green !important;
+        }
+
+        p {
+            color: blue;
+        }
+
+        #d2 {
+            width: 612px;
+            height: 377px;
+            /*border: 1px solid blue;*/
+            background: #e8e8e8;
+            cursor: pointer;
+            /*overflow: hidden;*/
+        }
+
+        img {
+            position: absolute;
+            top: 130px;
+            left: 200px;
+            transition: 1s;
+            width: 390px;
+            height: 300px;
+        }
+
+        img:hover {
+            transform: scale(1.1, 1.1);
+        }
+
+        #a1 {
+            background: #0aa1ed;
+            width: 132px;
+            height: 40px;
+            display: block;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            border-radius: 3px;
+            position: relative;
+            /*left: 100px;*/
+            /*top: 230px;*/
+            left: 65px;
+            /*top: 20px;*/
+        }
+
+        #p1 {
+            font-size: 32px;
+            color: #333;
+            font-family: simhei,serif;
+            display: block;
+            position: relative;
+            left: 65px;
+            top: 30px;
+        }
+
+        #p2 {
+            font-size: 12px;
+            color: #666;
+            font-family: simhei,serif;
+            display: block;
+            position: relative;
+            left: 65px;
+        }
+
+        #p3 {
+            font-size: 24px;
+            color: #0AA1ED;
+            margin-bottom: 12px;
+            display: block;
+            position: relative;
+            left: 65px;
+            /*top: 10px;*/
+        }
+    </style>
+</head>
+<body>
+<div id="d1">
+    <p>这是p标签</p>
+    <span>这是span标签</span>
+    <a href="">超链接</a>
+</div>
+<div id="d2">
+    <p id="p1">Apple MacBook<br>Air系列</p>
+    <p id="p2">酷睿双核i5处理器|256GB SSD|8GB内存|英特<br>尔HD显卡620含共享显卡内存</p>
+    <p id="p3">￥6988.00</p>
+    <a id="a1" href="#">查看详情</a>
+    <img src="img.png" alt="">
+</div>
+</body>
+</html>

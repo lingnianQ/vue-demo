@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+</head>
+<body>
+<div id="div_1">
+    <input type="text" v-model="guess" placeholder="请输入1-100之间的整数">
+    <input type="button" value="猜一猜" @click="f()">
+    <h1>{{info}}</h1>
+</div>
+
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<script>
+    let x = parseInt(Math.random() * 100) + 1;
+    console.log(x);
+    let v = new Vue({
+        el: "#div_1",
+        data: {
+            guess: "",
+            info: ""
+        },
+        methods: {
+            f() {
+                if (x == v.guess) {
+                    v.info="猜对了！"
+                } else {
+                    v.info="猜错了！"
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

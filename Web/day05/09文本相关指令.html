@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    {{msg}}
+    <p>{{msg}}</p>
+    <h1>{{msg}}</h1>
+    <!-- v-text=   元素的文本内容-->
+    <h1 v-text="msg"></h1>
+    <!-- v-html=  元素html标签内容绑定-->
+    <h1 v-html="msg"></h1>
+</div>
+
+<script src="js/vue.min.js"></script>
+<script>
+    let v = new Vue({
+        el: "body>div",
+        data: {
+            msg: "文本相关<b>文本相关</b>"
+        }
+    })
+    const HelloVueApp = {
+        data() {
+            return {
+                message: 'Hello Vue!!'
+            }
+        }
+    }
+</script>
+</body>
+</html>

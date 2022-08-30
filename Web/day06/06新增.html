@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <style>
+        input {
+            background-color: #62B5EC;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <table border="1" style="color: green">
+        <caption>员工列表</caption>
+        <tr>
+            <th>编号</th>
+            <th>名字</th>
+            <th>职位</th>
+            <th>工资</th>
+            <th>年龄</th>
+            <th>操作</th>
+        </tr>
+        <tr v-for="(p,i) in staff">
+            <td>{{i + 1}}</td>
+            <td v-for="vo in p">{{vo}}</td>
+            <td><input type="button" value="删除" @click="del(i)"></td>
+        </tr>
+        <tr>
+            <td>00</td>
+            <td><input type="text" v-model="emp.name"></td>
+            <td><input type="text" v-model="emp.job"></td>
+            <td><input type="text" v-model="emp.salary"></td>
+            <td><input type="text" v-model="emp.age"></td>
+            <td><input type="button" value="添加员工" @click="add()"></td>
+        </tr>
+    </table>
+</div>
+
+
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<script>
+    let v = new Vue({
+        el: "body>div",
+        data: {
+            emp: {
+                name: "",
+                job: "",
+                salary: "",
+                age: "",
+            },
+
+            staff: [
+                {name: "张飞", job: "销售", salary: 5000, age: 18},
+                {name: "张飞", job: "销售", salary: 5000, age: 18},
+                {name: "张飞", job: "销售", salary: 5000, age: 18},
+                {name: "张飞", job: "销售", salary: 5000, age: 18},
+            ],
+        },
+        methods: {
+            add() {
+                v.staff.push({name: v.emp.name, job: v.emp.job, salary: v.emp.salary, age: v.emp.age});
+            },
+
+            del(i) {
+                v.staff.splice(i, 1);
+            }
+        },
+    });
+</script>
+</body>
+</html>
