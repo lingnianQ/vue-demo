@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+</head>
+<body>
+<div id="app">
+
+    <el-input
+            placeholder="请输入姓名"
+            v-model="emp.name"
+            clearable>
+    </el-input>
+    <el-input
+            placeholder="请输入工作"
+            v-model="emp.job"
+            clearable>
+    </el-input>
+    <el-input
+            placeholder="请输入工资"
+            v-model="emp.salary"
+            clearable>
+    </el-input>
+    <el-input
+            size="mini"
+            placeholder="请输入年龄"
+            v-model="emp.age"
+            clearable>
+    </el-input>
+    <el-button
+            type="primary"
+            @click="handleAdd(emp)">增加
+    </el-button>
+    <h1>员工列表</h1>
+    <template>
+        <el-table :data="arr"
+                  style="width: 100%">
+            <el-table-column
+                    type="index"
+                    label="编号"
+                    width="180"
+            ></el-table-column>
+            <el-table-column
+                    prop="name"
+                    label="姓名"
+                    width="180"
+            ></el-table-column>
+            <el-table-column
+                    prop="job"
+                    label="工作"
+                    width="180"
+            ></el-table-column>
+            <el-table-column
+                    prop="salary"
+                    label="工资"
+                    width="180"
+            ></el-table-column>
+            <el-table-column
+                    prop="age"
+                    label="年龄"
+            ></el-table-column>
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <el-button
+                            size="mini"
+                            @click="handleEdit(scope.$index, scope.row)">编辑
+                    </el-button>
+                    <el-button
+                            size="mini"
+                            type="danger"
+                            @click="handleDelete(scope.$index, scope.row)">删除
+                    </el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+    </template>
+
+</div>
+
+</body>
+
+<!-- import Vue before Element -->
+<script src="https://cdn.staticfile.org/vue/2.6.14/vue.min.js"></script>
+<!-- import JavaScript -->
+<script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+<script>
+    let v = new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                emp: {
+                    name: "",
+                    job: "",
+                    salary: "",
+                    age: ""
+                },
+
+                arr: [
+                    {name: "张飞", job: "销售", salary: 5000, age: 18},
+                    {name: "刘备", job: "销售", salary: 5000, age: 18},
+                    {name: "关羽", job: "销售", salary: 5000, age: 18},
+                    {name: "曹操", job: "销售", salary: 5000, age: 18},
+                ],
+            }
+        },
+        methods: {
+            handleEdit(index, row) {
+                v.$message(index + ":" + row.name);
+                console.log(index, row);
+            },
+            handleDelete(index, row) {
+                v.$message(index + ":" + row.name);
+                v.arr.splice(index, 1);
+                console.log(index, row);
+            },
+            handleAdd() {
+                v.arr.push({name:v.emp.name,job:v.emp.job,salary:v.emp.salary,age:v.emp.age});
+            }
+        },
+    })
+</script>
+</html>
