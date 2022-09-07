@@ -8,6 +8,7 @@ class Boot01ApplicationTests {
 
     @Test
     void contextLoads() {
+
     }
 
 }

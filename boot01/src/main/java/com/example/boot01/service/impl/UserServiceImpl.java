@@ -6,6 +6,8 @@ import com.example.boot01.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author sytsnb@gmail.com
  * @Date 2022 2022/9/6 18:44
@@ -14,6 +16,11 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements IUserService {
     @Autowired
     private UserMapper userMapper;
+
+    @Override
+    public List<User> findAll() {
+        return userMapper.findAll();
+    }
 
     @Override
     public User login(String name) {

@@ -1,6 +1,9 @@
 package com.example.boot01.service;
 
 import com.example.boot01.entity.User;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * @author sytsnb@gmail.com
@@ -8,6 +11,11 @@ import com.example.boot01.entity.User;
  */
 
 public interface IUserService {
+    /**
+     * 查询用户列表
+     * @return
+     */
+    List<User> findAll();
     /**
      * 登录
      * @param name
