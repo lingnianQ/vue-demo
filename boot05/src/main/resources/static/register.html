@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <h1>注册页面</h1>
+
+    <input type="text" v-model="name" placeholder="请输入用户名" @blur="f()"><br>
+    <h1>{{result}}</h1><br>
+    <input type="password" v-model="password" placeholder="请输入密码"><br>
+    <input type="text" v-model="age" placeholder="请输入年龄"><br>
+    <input type="button" value="注册" @click="reg()"><br>
+
+    <a href="login.html">去登录</a><br>
+    <a href="register.html">去注册</a>
+</div>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<script>
+    let v = new Vue({
+            el: "body>div",
+            data: {
+                name: "",
+                password: "",
+                age: "",
+                result: ""
+            },
+            methods: {
+                f() {
+                    console.log("鼠标离开");
+                    axios.get("http://localhost:8087/check?name=" + v.name).then(function (response) {
+                        v.result = response.data;
+                    })
+                },
+                reg() {
+                    let user = {name: v.name, password: v.password, age: v.age};
+                    axios.post("/reg", user).then(function (response) {
+                        console.log(response.data);
+                    })
+                }
+            }
+        })
+    ;
+</script>
+</body>
+</html>
