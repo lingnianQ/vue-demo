@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <table border="1">
+        <caption>商品列表</caption>
+        <tr>
+            <th>id</th>
+            <th>title</th>
+            <th>price</th>
+            <th>num</th>
+            <th colspan="2">操作</th>
+        </tr>
+        <tr ref="tr" v-for="(product,index) in list" :key="index">
+            <td v-for="item in product">{{item}}</td>
+            <!--            <td><input type="button" value="删除" @click="del(this,product.id)"></td>-->
+            <td><a :href="'update.html?id='+product.id">修改</a></td>
+            <td><a href="javascript:void(0)" @click="del(this,product.id)">删除</a></td>
+        </tr>
+    </table>
+    <input type="button" value="上一页" @click="sup()">
+    <input type="button" value="下一页" @click="add()">
+    <!--    <input type="button" value="获取商品列表" @click="f()">-->
+</div>
+
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<script>
+    let v = new Vue({
+        el: "body>div",
+        data: {
+            product: {
+                title: "",
+                price: "",
+                num: ""
+            },
+            list: [],
+            pageNum: 1
+        },
+        methods: {
+            del(obj, id) {
+
+                if (confirm("你确定删除此商品吗?")) {
+                    axios.get("/del?id=" + id).then(function (response) {
+                        console.log(response.data);
+
+                        location.reload();//刷新页面
+
+                    })
+
+                    // this.f();
+
+                    // console.log(obj);
+                    // console.log(id);
+                }
+
+            },
+            f() {
+                axios.get("/select?pageNum=" + v.pageNum).then(function (response) {
+                    v.list = response.data;
+                })
+            },
+            sup() {
+                v.pageNum--;
+                this.f();
+            },
+            add() {
+                v.pageNum++;
+                this.f();
+            }
+        },
+        created: function () {
+            axios.get("/select?pageNum=1").then(function (response) {
+                v.list = response.data;
+                console.log(v.pageNum);
+            })
+        }
+    });
+</script>
+</body>
+</html>
