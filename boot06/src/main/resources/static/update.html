@@ -23,7 +23,7 @@
         },
         methods: {
             update() {
-                axios.get("/update", v.p).then(function (response) {
+                axios.post("/update", v.p).then(function (response) {
                     alert("修改成功");
                 })
             }

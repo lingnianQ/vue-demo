@@ -77,7 +77,7 @@
             }
         },
         created: function () {
-            axios.get("/select?pageNum=1").then(function (response) {
+            axios.post("/select?pageNum=1").then(function (response) {
                 v.list = response.data;
                 console.log(v.pageNum);
             })

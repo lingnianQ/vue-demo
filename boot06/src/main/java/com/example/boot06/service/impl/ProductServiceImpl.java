@@ -30,9 +30,8 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public int update(Product product) {
+    public void update(Product product) {
        productMapper.update(product);
-       return 1;
     }
 
     @Override
