@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <h1>工程首页</h1>
+    <a href="/upload.html">上传图片</a>
+    <hr>
+    <div v-for="image in arr">
+        <h2>{{image.intro}}</h2>
+        <img v-for="url in image.urlArr" :src="url" width="100" alt="">
+        <a href="javaScript:void(0)" @click="del(image.id)">删除</a>
+    </div>
+</div>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<script>
+    let v = new Vue({
+        el: "body>div",
+        data: {
+            arr: [{id: 1, intro: "第一条数据", urls: "/a.jpg,/a.jpg"}]
+        },
+        created: function () {
+            axios.get("/select").then(function (res) {
+                v.arr = res.data;
+                for (let image of v.arr) {
+                    image.urlArr = image.urls.split(",");
+                }
+            })
+        },
+        methods: {
+            del(id) {
+                axios.get("/del?id=" + id).then(function (res) {
+                    alert("删除成功");
+                    location.reload();
+                })
+            }
+        }
+    });
+</script>
+
+
+</body>
+</html>
