@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login--</title>
+</head>
+<body>
+<div>
+    <h1>登录页面</h1>
+
+    <input type="text" name="name" v-model="name" placeholder="请输入用户名"><br>
+    <input type="password" name="password" v-model="password" placeholder="请输入密码"><br>
+    <input type="button" value="登录" @click="login()"><br>
+
+    <a href="login.html">去登录</a><br>
+    <a href="reg.html">去注册</a><br>
+</div>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<script>
+    let v = new Vue({
+        el: "body>div",
+        data: {
+            name: "",
+            password: "",
+            age: "",
+            result: ""
+        },
+        methods: {
+            login() {
+
+                axios.get("/login?name=" + v.name + "&password=" + v.password).then(function (response) {
+                    console.log(response.data);
+                })
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
