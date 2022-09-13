@@ -59,6 +59,7 @@
                 let image = {intro: v.intro, urls: v.arr.toString()};
                 axios.post("/insert", image).then(function (response) {
                     alert("上传完成");
+                    location.reload();
                 })
             },
 
@@ -70,6 +71,7 @@
             },
             handlePictureCardPreview(file) {
                 this.dialogImageUrl = file.url;
+                console.log(file);
                 this.dialogVisible = true;
             },
             handleSuccess(response, file, fileList) {
