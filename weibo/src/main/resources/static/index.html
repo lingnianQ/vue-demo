@@ -1,14 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
+<div>
+  <h1>微博首页</h1>
+    <!--isLogin=true时表示登录过 显示div里面的内容-->
+    <div v-if="isLogin">
+        <h2>欢迎{{user.nick}}回来</h2>
+        <a href="/send.html">发微博</a>
+        <a href="javascript:void(0)" @click="logout()">退出登录</a>
+    </div>
 
-<a href="login.html">去登录</a><br>
-<a href="reg.html">去注册</a>
+    <div v-else>
+        <a href="/reg.html">注册</a>
+        <a href="/login.html">登录</a>
+    </div>
+    <hr>
+    <div v-for="weibo in arr">
+        <h2>
+            <a :href="'/detail.html?id='+weibo.id">
+                {{weibo.nick}}说:{{weibo.content}}
+            </a>
+        </h2>
+        <!--遍历weibo对象中新增的urlArr数组 生成多个图片标签-->
+        <img v-for="url in weibo.urlArr" :src="url" width="100" alt="">
+    </div>
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<script>
+   let v = new Vue({
+     el:"body>div",
+     data:{
+         arr:[],
+         isLogin:false,
+         user:{}
+     },
+       created:function () {
+            //发请求获取所有微博信息
+           axios.get("/weibo/select").then(function (response) {
+               v.arr = response.data;
+               for (let weibo of v.arr) {
+                   // "/a.jpg,/b.jpg,/c.jpg"  ->  ["/a.jpg","/b.jpg","/c.jpg"]
+                   //JavaScript语言允许给对象动态添加属性
+                   weibo.urlArr = weibo.urls.split(",");
+               }
+           })
+
+           //发请求获取当前登录的用户信息
+           axios.get("/currentUser").then(function (response) {
+               //服务器返回的是当前登录的用户信息
+               //如果当前客户端没有登录服务器返回的是null但是由于中间参与了JSON格式的字符串
+               //服务器返回的null到客户端response.data这里得到的是空字符串 ""
+               //如果返回的是空字符串代表没有登录 否则代表登录了
+               v.isLogin = response.data==""?false:true;
+               v.user = response.data;
+           })
+       },
+       methods:{
+           logout(){
+               if (confirm("您确定要退出登录吗?")){
+                   axios.get("/logout").then(function () {
+                       v.isLogin=false;
+                   })
+               }
+           }
+       }
+   })
+</script>
 </body>
 </html>

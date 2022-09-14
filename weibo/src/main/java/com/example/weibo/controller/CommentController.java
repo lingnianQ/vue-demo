@@ -1,0 +1,43 @@
+package com.example.weibo.controller;
+
+import com.example.weibo.entity.Comment;
+import com.example.weibo.entity.User;
+import com.example.weibo.mapper.CommentMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpSession;
+import java.util.List;
+
+/**
+ * @author sytsnb@gmail.com
+ * @Date 2022 2022/9/14 17:10
+ */
+
+@RestController
+public class CommentController {
+    @Autowired
+    private CommentMapper commentMapper;
+
+    @RequestMapping("/comment/insert")
+    public int insert(@RequestBody Comment comment, HttpSession session) {
+        System.out.println("comment = " + comment);
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return 2;//代表没有登录
+        }
+        //把当前登录的用户名赋值给评论对象
+        comment.setNick(user.getNick());
+        //把comment的数据保存到 comment表中
+        commentMapper.insert(comment);
+        return 1;
+    }
+
+    @RequestMapping("/comment/selectByWeiboId")
+    public List<Comment> selectByWeiboId(int id) {
+
+        return commentMapper.selectByWeiboId(id);
+    }
+}
