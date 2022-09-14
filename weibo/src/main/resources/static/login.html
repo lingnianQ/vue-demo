@@ -2,43 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login--</title>
+    <title>Title</title>
 </head>
 <body>
 <div>
-    <h1>登录页面</h1>
-
-    <input type="text" name="name" v-model="name" placeholder="请输入用户名"><br>
-    <input type="password" name="password" v-model="password" placeholder="请输入密码"><br>
-    <input type="button" value="登录" @click="login()"><br>
-
-    <a href="login.html">去登录</a><br>
-    <a href="reg.html">去注册</a><br>
+  <h1>登录页面</h1>
+  <input type="text" v-model="user.name" placeholder="请输入用户名">
+  <input type="password" v-model="user.password" placeholder="请输入密码">
+  <input type="button" value="登录" @click="login()">
 </div>
-
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
 <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
 <script>
-    let v = new Vue({
-        el: "body>div",
-        data: {
-            name: "",
-            password: "",
-            age: "",
-            result: ""
-        },
-        methods: {
-            login() {
-
-                axios.get("/login?name=" + v.name + "&password=" + v.password).then(function (response) {
-                    console.log(response.data);
-                })
-            }
-        }
-    });
+   let v = new Vue({
+     el:"body>div",
+     data:{
+        user:{name:"",password:""}
+     },
+     methods:{
+       login(){
+         axios.post("/login",v.user).then(function (response) {
+           if (response.data==1){
+             alert("登录成功!");
+             location.href = "/";
+           }else if(response.data==-1){
+             alert("用户名不存在!");
+           }else{
+             alert("密码错误!");
+           }
+         })
+       }
+     }
+   })
 </script>
-
 </body>
 </html>
