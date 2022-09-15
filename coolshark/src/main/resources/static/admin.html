@@ -115,7 +115,7 @@
                 <!--                插入轮播图-->
                 <div v-if="currentIndex=='2-2'">
                     <el-page-header style="background-color: green;color: white;line-height: 60px"
-                                    @back="goBack"
+                                    @back="goBack('2-1')"
                                     content="添加轮播图"></el-page-header>
                     <!--limit控制图片数量  @back="goBack"-->
                     <el-upload
@@ -161,6 +161,57 @@
                     </el-table-column>
                 </el-table>
                 <!--商品表格结束-->
+                <div v-if="currentIndex=='3-2'">
+                    <el-page-header style="background-color: #0095d7;color: white;line-height: 60px" content="添加商品"
+                                    @back="goBack('3-1')"></el-page-header>
+                    <el-card style="width: 600px;height: 700px;margin: 0 auto">
+                        <el-form label-width="80px">
+                            <el-form-item label="商品标题">
+                                <el-input v-model="p.title" type="text"></el-input>
+                            </el-form-item>
+                            <el-form-item label="商品价格">
+                                <el-input v-model="p.price" type="text"></el-input>
+                            </el-form-item>
+                            <el-form-item label="商品原价">
+                                <el-input v-model="p.oldPrice" type="text"></el-input>
+                            </el-form-item>
+                            <el-form-item label="销量">
+                                <el-input v-model="p.saleCount" type="text"></el-input>
+                            </el-form-item>
+                            <el-form-item label="库存">
+                                <el-input v-model="p.num" type="text"></el-input>
+                            </el-form-item>
+                            <el-form-item label="商品分类">
+                                <el-select v-model="p.categoryId">
+                                    <!--遍历所有分类信息并展示在下拉选中-->
+                                    <el-option v-for="c in categoryArr"
+                                               :label="c.name" :value="c.id"></el-option>
+                                </el-select>
+
+                            </el-form-item>
+                            <el-form-item label="商品图片">
+                                <!--limit控制图片数量-->
+                                <el-upload
+                                        name="pic"
+                                        limit="1"
+                                        action="/upload"
+                                        list-type="picture-card"
+                                        :on-success="handleSuccess"
+                                        :on-preview="handlePictureCardPreview"
+                                        :on-remove="handleRemove">
+                                    <i class="el-icon-plus"></i>
+                                </el-upload>
+                                <el-dialog :visible.sync="dialogVisible">
+                                    <img width="100%" :src="dialogImageUrl" alt="">
+                                </el-dialog>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" @click="send1()">发布商品</el-button>
+                            </el-form-item>
+                        </el-form>
+                    </el-card>
+
+                </div>
 
             </el-main>
         </el-container>
@@ -270,7 +321,7 @@
                         url: "imgs/a.jpg",
                         saleCount: 2342
                     }
-                    ]
+                ]
             }
         },
         created: function () {
@@ -364,10 +415,27 @@
 
                 })
             },
-            goBack() {
+            send1() {
+                if (v.url == "") {
+                    v.$message.error("请选择上传的图片!");
+                    return;
+                }
+                //发出添加轮播图的请求
+                axios.get("/prodouct/insert?url=" + v.url).then(function (res) {
+                    //返回后台管理页面
+                    // location.href = "/admin.html";
+                    if (res.data.code == 200) {
+                        v.$message.success(res.data.status);
+                        v.currentIndex = '2-1';
+                    }
+
+
+                })
+            },
+            goBack(go) {
                 //返回上一页面
                 // history.back();
-                v.currentIndex = '2-1';
+                v.currentIndex = go;
             },
             handleRemove(file, fileList) {
                 console.log(file, fileList);
