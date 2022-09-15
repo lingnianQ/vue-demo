@@ -1,6 +1,7 @@
 package cn.tedu.coolshark.controller;
 
 import cn.tedu.coolshark.model.Banner;
+import cn.tedu.coolshark.model.Result;
 import cn.tedu.coolshark.service.IBannerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,12 @@ public class BannerController {
     @GetMapping("/select")
     public List<Banner> select() {
         return bannerService.findAll();
+    }
+
+    @GetMapping("/delete")
+    public Result delete(int id) {
+        bannerService.deleteById(id);
+        return new Result(200, "轮播图删除成功");
     }
 
 }

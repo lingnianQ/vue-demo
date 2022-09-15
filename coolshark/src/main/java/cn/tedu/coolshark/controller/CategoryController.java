@@ -4,9 +4,7 @@ import cn.tedu.coolshark.model.Category;
 import cn.tedu.coolshark.model.Result;
 import cn.tedu.coolshark.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +29,17 @@ public class CategoryController {
     public Result delete(int id) {
         categoryService.deleteById(id);
         return new Result(200, "删除成功");
+    }
+
+    @PostMapping("/update")
+    public Result update(@RequestBody Category category) {
+
+        return categoryService.update(category);
+    }
+
+    @GetMapping("/insert")
+    public List<Category> insert(String name) {
+        categoryService.insert(name);
+        return categoryService.findAll();
     }
 }

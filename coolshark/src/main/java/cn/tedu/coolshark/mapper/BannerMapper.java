@@ -1,6 +1,7 @@
 package cn.tedu.coolshark.mapper;
 
 import cn.tedu.coolshark.model.Banner;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -15,4 +16,8 @@ public interface BannerMapper {
 
     @Select("select id,url from t_banner")
     List<Banner> findAll();
+
+
+    @Delete("delete from t_banner where id=#{id}")
+    void deleteById(int id);
 }

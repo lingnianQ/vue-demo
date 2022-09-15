@@ -21,4 +21,9 @@ public class BannerServiceImpl implements IBannerService {
     public List<Banner> findAll() {
         return bannerMapper.findAll();
     }
+
+    @Override
+    public void deleteById(int id) {
+        bannerMapper.deleteById(id);
+    }
 }
