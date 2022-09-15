@@ -18,6 +18,11 @@ public class BannerServiceImpl implements IBannerService {
     private BannerMapper bannerMapper;
 
     @Override
+    public void insert(String url) {
+        bannerMapper.insert(url);
+    }
+
+    @Override
     public List<Banner> findAll() {
         return bannerMapper.findAll();
     }

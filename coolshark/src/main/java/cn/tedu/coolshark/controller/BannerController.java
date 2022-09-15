@@ -21,6 +21,11 @@ public class BannerController {
     @Autowired
     private IBannerService bannerService;
 
+    @GetMapping("/insert")
+    public Result insert(String url){
+        bannerService.insert(url);
+        return new Result(200,"添加banner成功");
+    }
     @GetMapping("/select")
     public List<Banner> select() {
         return bannerService.findAll();

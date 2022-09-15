@@ -10,6 +10,9 @@ import java.util.List;
  */
 
 public interface IBannerService {
+
+    void insert(String url);
+
     List<Banner> findAll();
 
     void deleteById(int id);

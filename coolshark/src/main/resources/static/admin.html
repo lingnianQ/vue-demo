@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <!-- import CSS -->
     <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+    <style>
+        .el-page-header__content {
+            color: white;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <div id="app">
@@ -106,6 +112,29 @@
                     </el-table-column>
                 </el-table>
                 <!--轮播图表格结束-->
+                <!--                插入轮播图-->
+                <div v-if="currentIndex=='2-2'">
+                    <el-page-header style="background-color: green;color: white;line-height: 60px"
+                                    @back="goBack"
+                                    content="添加轮播图"></el-page-header>
+                    <!--limit控制图片数量  @back="goBack"-->
+                    <el-upload
+                            name="pic"
+                            limit="1"
+                            action="/upload"
+                            list-type="picture-card"
+                            :on-success="handleSuccess"
+                            :on-preview="handlePictureCardPreview"
+                            :on-remove="handleRemove">
+                        <i class="el-icon-plus"></i>
+                    </el-upload>
+                    <el-dialog :visible.sync="dialogVisible">
+                        <img width="100%" :src="dialogImageUrl" alt="">
+                    </el-dialog>
+                    <el-button type="primary" @click="send()">发布轮播图</el-button>
+                </div>
+
+                <!--                插入轮播图结束-->
                 <!--商品表格开始-->
                 <el-table v-if="currentIndex=='3-1'" :data="productArr" style="width: 100%">
                     <el-table-column type="index" label="编号" width="50">
@@ -148,18 +177,22 @@
         el: '#app',
         data: function () {
             return {
+                dialogImageUrl: '',
+                dialogVisible: false,
+                url: "",
                 currentIndex: "1-1",
                 categoryArr: [{name: "品牌服装"}, {name: "精品女装"},
                     {name: "美食健康"}, {name: "数码科技"}, {name: "篮球鞋"}],
                 bannerArr: [{url: "imgs/b1.jpg"}, {url: "imgs/b2.jpg"},
                     {url: "imgs/b3.jpg"}],
-                productArr: [{
-                    title: "森马牛仔裤女宽松慢跑裤运动风2022春季新款显瘦束脚长裤复古",
-                    price: 233,
-                    oldPrice: 598,
-                    url: "imgs/a.jpg",
-                    saleCount: 2342
-                },
+                productArr: [
+                    {
+                        title: "森马牛仔裤女宽松慢跑裤运动风2022春季新款显瘦束脚长裤复古",
+                        price: 233,
+                        oldPrice: 598,
+                        url: "imgs/a.jpg",
+                        saleCount: 2342
+                    },
                     {
                         title: "茵曼马甲连衣裙两件套春季新款娃娃领色织格长袖背心裙套装",
                         price: 233,
@@ -195,7 +228,13 @@
                         url: "imgs/f.jpg",
                         saleCount: 2342
                     },
-                    {title: "SEMIR森马商场同款打底针织毛衣纯色高领新品显瘦", price: 233, oldPrice: 598, url: "imgs/g.jpg", saleCount: 2342},
+                    {
+                        title: "SEMIR森马商场同款打底针织毛衣纯色高领新品显瘦",
+                        price: 233,
+                        oldPrice: 598,
+                        url: "imgs/g.jpg",
+                        saleCount: 2342
+                    },
                     {
                         title: "美特斯邦威女MTEE 贺岁系列中长款风衣736598",
                         price: 233,
@@ -230,7 +269,8 @@
                         oldPrice: 598,
                         url: "imgs/a.jpg",
                         saleCount: 2342
-                    }]
+                    }
+                    ]
             }
         },
         created: function () {
@@ -293,13 +333,55 @@
                     }
                     v.$message("添加分类");
                 } else if (key == '2-2') {
+                    v.currentIndex = key;
                     v.$message("添加轮播图");
                 } else if (key == '3-2') {
+                    v.currentIndex = key;
                     v.$message("添加商品");
                 } else {
                     v.currentIndex = key;
                 }
+            },
 
+            handleSuccess(response, file, fileList) {
+                v.url = response.status;
+                console.log(response.status);
+            },
+            send() {
+                if (v.url == "") {
+                    v.$message.error("请选择上传的图片!");
+                    return;
+                }
+                //发出添加轮播图的请求
+                axios.get("/banner/insert?url=" + v.url).then(function (res) {
+                    //返回后台管理页面
+                    // location.href = "/admin.html";
+                    if (res.data.code == 200) {
+                        v.$message.success(res.data.status);
+                        v.currentIndex = '2-1';
+                    }
+
+
+                })
+            },
+            goBack() {
+                //返回上一页面
+                // history.back();
+                v.currentIndex = '2-1';
+            },
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+                axios.get("/remove?url=" + file.response.status).then(function () {
+                    console.log(file.response.status);
+                    console.log("--------");
+                    console.log(file.response.status);
+
+                    v.$message.success("删除完成!");
+                })
+            },
+            handlePictureCardPreview(file) {
+                this.dialogImageUrl = file.url;
+                this.dialogVisible = true;
             }
         }
     })
