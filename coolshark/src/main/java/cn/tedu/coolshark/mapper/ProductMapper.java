@@ -36,6 +36,21 @@ public interface ProductMapper {
     @Select("select url from t_product where id=#{id}")
     String selectUrlById(int id);
 
+    @Select("select * from t_product where id=#{id}")
+    Product selectById(int id);
+
     @Delete("delete from t_product where id=#{id}")
     void deleteById(int id);
+
+    @Select("select id,title,sale_count from t_product order by sale_count desc limit 0,6")
+    List<Product> selectTop();
+
+    @Select("select id,title,price,old_price,sale_count,url from t_product")
+    List<Product> selectIndex();
+
+    @Select("select id,title,price,old_price,sale_count,url from t_product where category_id=#{id}")
+    List<Product> selectByCid(int id);
+    //
+    @Select("select id,title,price,old_price,sale_count,url from t_product where title like concat('%',#{wd},'%')")
+    List<Product> selectByWd(String wd);
 }

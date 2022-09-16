@@ -6,6 +6,7 @@ import cn.tedu.coolshark.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,11 +19,38 @@ public class ProductController {
     @Autowired
     private IProductService productService;
 
-    @PostMapping("/insert")
-    public Result insert(@RequestBody Product product){
-        productService.insert(product);
-        return new Result(200,"添加产品成功");
+    @GetMapping("/selectByCid")
+    public List<Product> selectByCid(int id) {
+        return productService.selectByCid(id);
     }
+
+    @GetMapping("/selectByWd")
+    public List<Product> selectByWd(String wd) {
+        return productService.selectByWd(wd);
+    }
+
+    @GetMapping("/selectTop")
+    public List<Product> selectTop() {
+        return productService.selectTop();
+    }
+
+    @GetMapping("/selectIndex")
+    public List<Product> selectIndex() {
+        return productService.selectIndex();
+    }
+
+    @GetMapping("/selectById")
+    public Product selectById(int id) {
+        return productService.selectById(id);
+    }
+
+    @PostMapping("/insert")
+    public Result insert(@RequestBody Product product) {
+        product.setCreated(new Date());
+        productService.insert(product);
+        return new Result(200, "添加产品成功");
+    }
+
     @GetMapping("/select")
     public List<Product> select() {
         return productService.findAll();

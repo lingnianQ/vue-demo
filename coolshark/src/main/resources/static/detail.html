@@ -5,7 +5,7 @@
     <!-- import CSS -->
     <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
     <style>
-        header a{
+        header a {
             text-decoration: none;
             color: #6c6c6c;
         }
@@ -17,29 +17,30 @@
     <el-container>
         <el-header height="150px">
             <div style="width: 1200px;margin: 0 auto">
-                <img src="imgs/logo.png"  style="width: 300px;vertical-align: middle" alt="">
-                <a href="">首页</a><el-divider direction="vertical"></el-divider>
-                <a href="">热点资讯</a><el-divider direction="vertical"></el-divider>
-                <a href="">商家入驻</a><el-divider direction="vertical"></el-divider>
-                <a href="">社会招聘</a><el-divider direction="vertical"></el-divider>
-                <a href="">校园招聘</a><el-divider direction="vertical"></el-divider>
+                <img src="imgs/logo.png" style="width: 300px;vertical-align: middle" alt="">
+                <a href="index.html">首页</a>
+                <el-divider direction="vertical"></el-divider>
+                <a href="">热点资讯</a>
+                <el-divider direction="vertical"></el-divider>
+                <a href="">商家入驻</a>
+                <el-divider direction="vertical"></el-divider>
+                <a href="">社会招聘</a>
+                <el-divider direction="vertical"></el-divider>
+                <a href="">校园招聘</a>
+                <el-divider direction="vertical"></el-divider>
                 <a href="">帮助</a>
             </div>
             <!--导航菜单开始-->
             <div style="background-color: #82c8ec">
                 <el-menu style="width: 1200px;margin: 0 auto"
-                        :default-active="activeIndex" class="el-menu-demo"
+                         :default-active="activeIndex" class="el-menu-demo"
                          background-color="#82c8ec"
                          text-color="#fff"
                          active-text-color="#fff"
                          mode="horizontal" @select="handleSelect">
-                    <el-menu-item index="1">精彩活动</el-menu-item>
-                    <el-menu-item index="2">当季女装</el-menu-item>
-                    <el-menu-item index="3">品牌男装</el-menu-item>
-                    <el-menu-item index="4">环球美食</el-menu-item>
-                    <el-menu-item index="5">医药健康</el-menu-item>
-                    <el-menu-item index="6">美妆彩妆</el-menu-item>
-                    <el-menu-item index="7">母婴产品</el-menu-item>
+                    <!--                   ==========;-->
+                    <el-menu-item v-for="item in categoryArr" :index="item.id">{{item.name}}</el-menu-item>
+
                     <div style="float:right;position: relative;top: 10px">
                         <el-input placeholder="请输入搜索内容">
                             <el-button slot="append" icon="el-icon-search"></el-button>
@@ -58,15 +59,16 @@
                 </el-col>
                 <el-col span="12">
                     <p style="font-size: 25px">
-                        森马牛仔裤女宽松慢跑裤运动风2022春季新款显瘦束脚长裤复古
+                        {{product.title}}
                     </p>
                     <el-divider></el-divider>
                     <p style="font-size: 15px;color: #666">
-                        销量:342 浏览量:200
+                        销量:{{product.saleCount}} 浏览量:{{product.viewCount}}
+                        <span style="float: right">{{product.created}}</span>
                     </p>
                     <p style="font-size: 25px;font-weight: bold">
-                        ￥ 68
-                        <span style="font-size: 15px;color: #666">原价:<s>99</s></span>
+                        ￥ {{product.price}}
+                        <span style="font-size: 15px;color: #666">原价:<s>{{product.oldPrice}}</s></span>
                     </p>
                     <el-row gutter="20">
                         <el-col span="8">
@@ -106,6 +108,7 @@
 </body>
 <!-- import Vue before Element -->
 <script src="https://cdn.staticfile.org/vue/2.6.14/vue.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <!-- import JavaScript -->
 <script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
 <script>
@@ -113,16 +116,35 @@
         el: '#app',
         data: function () {
             return {
-                activeIndex:"1",
-                topArr:[{title:"小米电视",saleCount:685},{title:"李宁毛巾",saleCount:457},
-                    {title:"安踏拖鞋",saleCount:185},{title:"华为手机",saleCount:57},
-                    {title:"耐克篮球",saleCount:32},{title:"联想电脑",saleCount:18}]
+                product: {
+                    id: "",
+                    title: "",
+                    url: "",
+                    price: "",
+                    oldPrice: "",
+                    saleCount: "",
+                    num: "",
+                    viewCount: "",
+                    created: "",
+                    categoryId: ""
+                },
+                activeIndex: "1",
+                productArr: [],
+                categoryArr: [],
             }
         },
         methods: {
-            handleSelect(key,keyPath){
-                console.log(key,keyPath);
+            handleSelect(key, keyPath) {
+                console.log(key, keyPath);
             }
+        },
+        created: function () {
+            axios.get("/category/select").then(function (res) {
+                v.categoryArr = res.data;
+            })
+            axios.get("/product/selectById" + location.search).then(function (res) {
+                v.product = res.data;
+            })
         }
     })
 </script>

@@ -20,6 +20,27 @@ public class ProductServiceImpl implements IProductService {
     @Autowired
     private ProductMapper productMapper;
 
+
+    @Override
+    public List<Product> selectByCid(int id) {
+        return productMapper.selectByCid(id);
+    }
+
+    @Override
+    public List<Product> selectByWd(String wd) {
+        return productMapper.selectByWd(wd);
+    }
+
+    @Override
+    public List<Product> selectTop() {
+        return productMapper.selectTop();
+    }
+
+    @Override
+    public Product selectById(int id) {
+        return productMapper.selectById(id);
+    }
+
     @Override
     public void insert(Product product) {
         productMapper.insert(product);
@@ -33,9 +54,14 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public void deleteById(int id) {
         //通过id查询到文件路径 然后删除文件
-        String url = productMapper.selectUrlById(id);
-        new File("d:/files"+url).delete();
+        String url = selectUrlById(id);
+        new File("d:/files" + url).delete();
         productMapper.deleteById(id);
+    }
+
+    @Override
+    public List<Product> selectIndex() {
+        return productMapper.selectIndex();
     }
 
     @Override

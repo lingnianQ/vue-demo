@@ -25,20 +25,17 @@ enum Gender {
 }
 
 
-
 public class test {
 
-static void print(List<Object> list){
-    System.out.println(list);
-}
+    static void print(List<Object> list) {
+        System.out.println(list);
+    }
+
     public static void main(String[] args) {
 
-
-        List<Integer> list = Arrays.asList(3, 2, 12, 5, 6, 11, 13);
-        long count = list.stream()
-                .filter(i -> i % 2 == 0 || i % 3 == 0)
-                .count();
-        System.out.println(count);
+        for (; ; ) {
+            System.out.println(new Date());
+        }
     }
 }
 
