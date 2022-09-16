@@ -162,27 +162,27 @@
                 </el-table>
                 <!--商品表格结束-->
                 <div v-if="currentIndex=='3-2'">
-                    <el-page-header style="background-color: #0095d7;color: white;line-height: 60px" content="添加商品"
+                    <el-page-header style="background-color: green;color: white;line-height: 60px" content="添加商品"
                                     @back="goBack('3-1')"></el-page-header>
                     <el-card style="width: 600px;height: 700px;margin: 0 auto">
                         <el-form label-width="80px">
                             <el-form-item label="商品标题">
-                                <el-input v-model="p.title" type="text"></el-input>
+                                <el-input v-model="product.title" type="text"></el-input>
                             </el-form-item>
                             <el-form-item label="商品价格">
-                                <el-input v-model="p.price" type="text"></el-input>
+                                <el-input v-model="product.price" type="text"></el-input>
                             </el-form-item>
                             <el-form-item label="商品原价">
-                                <el-input v-model="p.oldPrice" type="text"></el-input>
+                                <el-input v-model="product.oldPrice" type="text"></el-input>
                             </el-form-item>
                             <el-form-item label="销量">
-                                <el-input v-model="p.saleCount" type="text"></el-input>
+                                <el-input v-model="product.saleCount" type="text"></el-input>
                             </el-form-item>
                             <el-form-item label="库存">
-                                <el-input v-model="p.num" type="text"></el-input>
+                                <el-input v-model="product.num" type="text"></el-input>
                             </el-form-item>
                             <el-form-item label="商品分类">
-                                <el-select v-model="p.categoryId">
+                                <el-select v-model="product.categoryId">
                                     <!--遍历所有分类信息并展示在下拉选中-->
                                     <el-option v-for="c in categoryArr"
                                                :label="c.name" :value="c.id"></el-option>
@@ -228,6 +228,10 @@
         el: '#app',
         data: function () {
             return {
+                product: {
+                    title: "", price: "", oldPrice: "",
+                    saleCount: "", num: "", categoryId: "", url: ""
+                },
                 dialogImageUrl: '',
                 dialogVisible: false,
                 url: "",
@@ -236,94 +240,10 @@
                     {name: "美食健康"}, {name: "数码科技"}, {name: "篮球鞋"}],
                 bannerArr: [{url: "imgs/b1.jpg"}, {url: "imgs/b2.jpg"},
                     {url: "imgs/b3.jpg"}],
-                productArr: [
-                    {
-                        title: "森马牛仔裤女宽松慢跑裤运动风2022春季新款显瘦束脚长裤复古",
-                        price: 233,
-                        oldPrice: 598,
-                        url: "imgs/a.jpg",
-                        saleCount: 2342
-                    },
-                    {
-                        title: "茵曼马甲连衣裙两件套春季新款娃娃领色织格长袖背心裙套装",
-                        price: 233,
-                        oldPrice: 598,
-                        url: "imgs/b.jpg",
-                        saleCount: 2342
-                    },
-                    {
-                        title: "雪中飞墨绿色短袖t恤女夏2022新款纯棉半袖打底体恤夏季上衣潮ins",
-                        price: 233,
-                        oldPrice: 598,
-                        url: "imgs/c.jpg",
-                        saleCount: 2342
-                    },
-                    {
-                        title: "【佟丽娅同款】鸭鸭明星同款羽绒服2021年冬季新款时尚连帽外套冬",
-                        price: 233,
-                        oldPrice: 598,
-                        url: "imgs/d.jpg",
-                        saleCount: 2342
-                    },
-                    {
-                        title: "BEASTER小恶魔鬼脸明星同款夹克毛绒保暖加厚字母印花宽松外套ins",
-                        price: 233,
-                        oldPrice: 598,
-                        url: "imgs/e.jpg",
-                        saleCount: 2342
-                    },
-                    {
-                        title: "香影毛呢外套女中长款2021年冬季新款气质韩版娃娃领紫色呢子大衣",
-                        price: 233,
-                        oldPrice: 598,
-                        url: "imgs/f.jpg",
-                        saleCount: 2342
-                    },
-                    {
-                        title: "SEMIR森马商场同款打底针织毛衣纯色高领新品显瘦",
-                        price: 233,
-                        oldPrice: 598,
-                        url: "imgs/g.jpg",
-                        saleCount: 2342
-                    },
-                    {
-                        title: "美特斯邦威女MTEE 贺岁系列中长款风衣736598",
-                        price: 233,
-                        oldPrice: 598,
-                        url: "imgs/h.jpg",
-                        saleCount: 2342
-                    },
-                    {
-                        title: "imone2021秋款黑色小西装外套女韩版学生宽松学院风外套jk外套",
-                        price: 233,
-                        oldPrice: 598,
-                        url: "imgs/i.jpg",
-                        saleCount: 2342
-                    },
-                    {
-                        title: "BEASTER 小恶魔明星同款保暖长袖街头潮流连帽卫衣情侣上衣",
-                        price: 233,
-                        oldPrice: 598,
-                        url: "imgs/j.jpg",
-                        saleCount: 2342
-                    },
-                    {
-                        title: "憨厚皇后100%绵羊皮2021秋海宁真皮皮衣女长款修身绵羊皮风衣外",
-                        price: 233,
-                        oldPrice: 598,
-                        url: "imgs/k.jpg",
-                        saleCount: 2342
-                    },
-                    {
-                        title: "美特斯邦威高腰牛仔裤女宽松小脚新款春秋彩色潮流女士牛仔",
-                        price: 233,
-                        oldPrice: 598,
-                        url: "imgs/a.jpg",
-                        saleCount: 2342
-                    }
-                ]
+                productArr: []
             }
         },
+        //自动加载页面内容
         created: function () {
             axios.get("/category/select").then(function (res) {
                 v.categoryArr = res.data;
@@ -331,8 +251,12 @@
             axios.get("/banner/select").then(function (res) {
                 v.bannerArr = res.data;
             })
+            axios.get("/product/select").then(function (res) {
+                v.productArr = res.data;
+            })
         },
         methods: {
+            //更新分类名称
             updateCategory(category) {
                 //获取用户输入的新的分类名称
                 let name = prompt("请输入新的分类名称:")
@@ -344,7 +268,7 @@
                     // v.categoryArr = res.data;
                 })
             },
-
+            //删除分类
             categoryDelete(i, category) {
                 axios.get("/category/delete?id=" + category.id).then(function (res) {
                     //删除数组当中的数据
@@ -354,6 +278,7 @@
                     }
                 })
             },
+            //删除轮播图
             bannerDelete(i, banner) {
                 axios.get("/banner/delete?id=" + banner.id).then(function (res) {
                     //删除数组当中的数据
@@ -363,14 +288,15 @@
                     }
                 })
             },
+            //删除产品
             productDelete(i, product) {
-                // axios.get("/product/delete?id=" + product.id).then(function (res) {
-                //     //删除数组当中的数据
-                //     v.productArr.splice(i, 1);
-                //     if (res.data.code == 200) {
-                //         v.$message(res.data.status);
-                //     }
-                // })
+                axios.get("/product/delete?id=" + product.id).then(function (res) {
+                    //删除数组当中的数据
+                    v.productArr.splice(i, 1);
+                    if (res.data.code == 200) {
+                        v.$message(res.data.status);
+                    }
+                })
             },
             handleSelect(key, keyPath) {
                 console.log(key);
@@ -393,49 +319,10 @@
                     v.currentIndex = key;
                 }
             },
-
             handleSuccess(response, file, fileList) {
                 v.url = response.status;
+                v.product.url = v.url;
                 console.log(response.status);
-            },
-            send() {
-                if (v.url == "") {
-                    v.$message.error("请选择上传的图片!");
-                    return;
-                }
-                //发出添加轮播图的请求
-                axios.get("/banner/insert?url=" + v.url).then(function (res) {
-                    //返回后台管理页面
-                    // location.href = "/admin.html";
-                    if (res.data.code == 200) {
-                        v.$message.success(res.data.status);
-                        v.currentIndex = '2-1';
-                    }
-
-
-                })
-            },
-            send1() {
-                if (v.url == "") {
-                    v.$message.error("请选择上传的图片!");
-                    return;
-                }
-                //发出添加轮播图的请求
-                axios.get("/prodouct/insert?url=" + v.url).then(function (res) {
-                    //返回后台管理页面
-                    // location.href = "/admin.html";
-                    if (res.data.code == 200) {
-                        v.$message.success(res.data.status);
-                        v.currentIndex = '2-1';
-                    }
-
-
-                })
-            },
-            goBack(go) {
-                //返回上一页面
-                // history.back();
-                v.currentIndex = go;
             },
             handleRemove(file, fileList) {
                 console.log(file, fileList);
@@ -450,7 +337,43 @@
             handlePictureCardPreview(file) {
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
-            }
+            },
+            send() {
+                if (v.url == "") {
+                    v.$message.error("请选择上传的图片!");
+                    return;
+                }
+                //发出添加轮播图的请求
+                axios.get("/banner/insert?url=" + v.url).then(function (res) {
+                    //返回后台管理页面
+                    // location.href = "/admin.html";
+                    if (res.data.code == 200) {
+                        v.$message.success(res.data.status);
+                        v.currentIndex = '2-1';
+                    }
+                })
+            },
+            send1() {
+                if (v.product.url == "") {
+                    v.$message.error("请选择上传的图片!");
+                    return;
+                }
+                //发出添加产品图的请求
+                axios.post("/product/insert", v.product).then(function (res) {
+                    //返回后台管理页面
+                    // location.href = "/admin.html";
+                    if (res.data.code == 200) {
+                        v.$message.success(res.data.status);
+                        v.currentIndex = '3-1';
+                    }
+                })
+            },
+            //返回上一页面---go-
+            goBack(go) {
+                // history.back();
+                v.currentIndex = go;
+            },
+
         }
     })
 </script>
