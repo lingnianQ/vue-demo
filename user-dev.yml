@@ -1,0 +1,21 @@
+server:
+  port: ${port:9091}
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/springcould
+    username: root
+    password: root
+  application:
+    name: user-service
+mybatis:
+  type-aliases-package: com.example.user.pojo
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+  instance:
+    #    更倾向使用ip地址,而不是host名
+    prefer-ip-address: true
+    #    IP地址
+    ip-address: 127.0.0.1
