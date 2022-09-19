@@ -11,7 +11,7 @@
  Target Server Version : 100307
  File Encoding         : 65001
 
- Date: 14/09/2022 18:08:37
+ Date: 19/09/2022 19:55:15
 */
 
 SET NAMES utf8mb4;
@@ -27,11 +27,13 @@ CREATE TABLE `t_comment`  (
   `nick` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `weibo_id` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_comment
 -- ----------------------------
+INSERT INTO `t_comment` VALUES (1, '123', 'qwe', 4);
+INSERT INTO `t_comment` VALUES (2, 'qwe', 'qwe', 4);
 
 -- ----------------------------
 -- Table structure for t_image
@@ -1040,13 +1042,12 @@ CREATE TABLE `t_user`  (
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `nick` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3005 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3007 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES (3003, '123', '123', '零念');
-INSERT INTO `t_user` VALUES (3004, '456', '123', '007');
+INSERT INTO `t_user` VALUES (3006, '123', '123', 'qwe');
 
 -- ----------------------------
 -- Table structure for weibo
@@ -1060,12 +1061,11 @@ CREATE TABLE `weibo`  (
   `user_id` int(11) NULL DEFAULT NULL,
   `nick` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of weibo
 -- ----------------------------
-INSERT INTO `weibo` VALUES (1, '123', '/23a2504b-253a-44e8-abf1-108308eed811.jpg', '2022-09-14 17:58:10', 3003, '零念');
-INSERT INTO `weibo` VALUES (2, '确实', '/0325ba88-bd75-44d1-bedc-2ddef50e8a62.png', '2022-09-14 18:00:36', 3004, '007');
+INSERT INTO `weibo` VALUES (4, 'asd', '/eec5b4bc-8d7e-401e-abe1-275789acf840.jpg', '2022-09-15 09:06:11', 3006, 'qwe');
 
 SET FOREIGN_KEY_CHECKS = 1;

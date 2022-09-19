@@ -11,6 +11,7 @@
     <h1>登录页面</h1>
     <input type="text" name="name" v-model="user.name">{{info}}<br>
     <input type="password" name="password" v-model="user.password"><br>
+    <input type="checkbox" v-model="user.rem"><label>记住密码</label><br>
     <input type="button" value="登录" @click="login()"><br>
 </div>
 
@@ -23,16 +24,27 @@
         data: {
             user: {
                 name: "",
-                password: ""
+                password: "",
+                rem: false
             },
-            info: ""
+            info: "",
+            flag: true
         },
         methods: {
             login() {
                 axios.post("/login?name=" + v.user.name + "&password=" + v.user.password).then(function (response) {
                         if (response.data == 1) {
                             v.info = "登录成功";
-                            location.href='/';
+                            //存入到本地 - 浏览器
+                            // localStorage.setItem("username1", v.user.name);
+                            // localStorage.setItem("password1", v.user.password);
+                            // if (v.user.rem) {
+                            //
+                            //     localStorage.setItem("flag", v.flag);
+                            // } else {
+                            //     localStorage.clear();
+                            // }
+                            // location.href = '/';
                         } else if (response.data == -1) {
                             v.info = '用户不存在';
                         } else {
@@ -41,6 +53,29 @@
                     }
                 )
             }
+        },
+        created: function () {
+            var cookieArr = document.cookie.split("; ");
+            for (let cookie of cookieArr) {
+                let arr = cookie.split("=");
+                let key = arr[0];
+                let value = arr[1];
+                if (key == "username") {
+                    this.user.name = value;
+                } else if (key == "password") {
+                    this.user.password = value;
+                }
+                console.log(cookie);
+            }
+            // let flag = localStorage.getItem("flag");
+            // if (flag) {
+            //     let uname = localStorage.getItem("username1");
+            //     let pwd = localStorage.getItem("password1");
+            //     this.user.name = uname;
+            //     this.user.password = pwd;
+            //     this.user.rem = flag;
+            // }
+
         }
     });
 </script>

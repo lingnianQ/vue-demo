@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
+
 /**
  * @author sytsnb@gmail.com
  * @Date 2022 2022/9/8 17:14
@@ -18,8 +22,10 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/login")
-    public String login(String name,String password){
-        return userService.findByUsername(name,password);
+    public String login(String name, String password,HttpServletResponse response) {
+
+
+        return userService.findByUsername(name, password,response);
     }
 
 
