@@ -20,10 +20,11 @@ public class UserController {
 
 
     @RequestMapping("/login")
-    public Result login(String name, String password) {
-        return userService.selectByUsername(name, password);
+    public Result login(String username, String password) {
+        Result result = userService.selectByUsername(username, password);
+        System.out.println(result);
+        return result;
     }
-
 
 
 }
